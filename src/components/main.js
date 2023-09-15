@@ -10,7 +10,7 @@ function Main({state}) {
       const web3 = new Web3(window.ethereum);
       const accounts = await web3.eth.getAccounts();
       const nameText = await contract.methods
-        .Product_Array(0)
+        .Manufacture_Array(accounts[0])
         .call();
       console.log(nameText);
       setDetail(nameText);
