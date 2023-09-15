@@ -4,21 +4,9 @@ import { MaterialReactTable } from 'material-react-table';
 
 function Customer({ state }) {
   const [detail, setDetail] = useState('');
-  const [blobUrl, setBlobUrl] = useState('');
-  const checkedValues = [];
 
-  const getCheckedValues = () => {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-    checkboxes.forEach((checkbox) => {
-      if (checkbox.checked) {
-        checkedValues.push(checkbox.value);
-      }
-    });
-    console.log('hii');
-    // Do something with the checkedValues array (e.g., display it)
-    console.log(checkedValues);
-  };
+  
 
   useEffect(() => {
     const { contract } = state;
@@ -38,7 +26,7 @@ function Customer({ state }) {
       price: 'East Daphne',
       description: 'adsadsdsadsa',
       buy: (
-        <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onClick={getCheckedValues}>
+        <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
           BUY
         </button>
       ),
@@ -48,7 +36,7 @@ function Customer({ state }) {
       price: 'East Daphne',
       description: 'adsadsdsadsa',
       buy: (
-        <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onClick={getCheckedValues}>
+        <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
           BUY
         </button>
       ),
