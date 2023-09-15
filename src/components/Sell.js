@@ -1,10 +1,110 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import Web3 from "web3";
+import { MaterialReactTable } from 'material-react-table';
+
 
 function Sell({state}) { 
+//nested data is ok, see accessorKeys in ColumnDef below
+const data = [
+    {
+      name: {
+        firstName: 'John',
+        lastName: 'Doe',
+      },
+      address: '261 Erdman Ford',
+      city: 'East Daphne',
+      state: 'Kentucky',
+      buy: <input type="checkbox" name="checkbox1"></input>
+    },
+    {
+      name: {
+        firstName: 'Jane',
+        lastName: 'Doe',
+      },
+      address: '769 Dominic Grove',
+      city: 'Columbus',
+      state: 'Ohio',
+      buy: <input type="checkbox" name="checkbox1"></input>
+    },
+    {
+      name: {
+        firstName: 'Joe',
+        lastName: 'Doe',
+      },
+      address: '566 Brakus Inlet',
+      city: 'South Linda',
+      state: 'West Virginia',
+      buy: <input type="checkbox" name="checkbox1"></input>
+    },
+    {
+      name: {
+        firstName: 'Kevin',
+        lastName: 'Vandy',
+      },
+      address: '722 Emie Stream',
+      city: 'Lincoln',
+      state: 'Nebraska',
+      buy: <input type="checkbox" name="checkbox1"></input>
+    },
+    {
+      name: {
+        firstName: 'Joshua',
+        lastName: 'Rolluffs',
+      },
+      address: '32188 Larkin Turnpike',
+      city: 'Charleston',
+      state: 'South Carolina',
+      buy: <input type="checkbox" name="checkbox1"></input>
+    },
+  ];
+
+    //should be memoized or stable
+    const columns = useMemo(
+        () => [
+          {
+            accessorKey: 'name.firstName', //access nested data with dot notation
+            header: 'First Name',
+            size: 150,
+          },
+          {
+            accessorKey: 'name.lastName',
+            header: 'Last Name',
+            size: 150,
+          },
+          {
+            accessorKey: 'address', //normal accessorKey
+            header: 'Address',
+            size: 200,
+          },
+          {
+            accessorKey: 'city',
+            header: 'City',
+            size: 150,
+          },
+          {
+            accessorKey: 'buy',
+            header: 'Buy',
+            size: 150,
+          },
+        ],
+        [],
+      );
     const [detail, setDetail] = useState("");
   const [blobUrl, setBlobUrl] = useState("");
-  const ids = [];
+  const checkedValues = [];
+  
+  const getCheckedValues = () => {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  
+    checkboxes.forEach((checkbox) => {
+      if (checkbox.checked) {
+        checkedValues.push(checkbox.value);
+      }
+    });
+    console.log("hii");
+    // Do something with the checkedValues array (e.g., display it)
+    console.log(checkedValues);
+  }
   useEffect(() => {
     const { contract } = state;
     const getDetail = async () => {
@@ -13,119 +113,48 @@ function Sell({state}) {
       const nameText = await contract.methods
         .Manufacture_Array(accounts[0])
         .call();
-      console.log(ids);
       setDetail(nameText);
     };
     contract && getDetail();
   }, [state]);
-    const handleChangeTwo = (value) => {
-        ids.push(value);
-        console.log(ids)
-      };
-
-      const Checkbox = ({ label, value, onChange }) => {
-        return (
-          <label>
-            <input type="checkbox" checked={value} onChange={onChange(value)} />
-            {label}
-          </label>
-        );
-      };
 
     return(
 
         <section class="text-gray-400 bg-gray-900 body-font">
         <div class="container px-5 py-24 mx-auto flex flex-wrap">
-          <div class="lg:w-2/3 mx-auto">
+          <div class="lg:w-3/3 mx-auto">
             <div class="flex flex-wrap w-full bg-gray-800 py-32 px-10 relative mb-4">
-                
-            <table class="table-auto w-full text-left whitespace-no-wrap">
+            {/* <table className="table-auto w-full text-left whitespace-no-wrap">
               <thead>
                 <tr>
-                  <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800 rounded-tl rounded-bl">Plan</th>
-                  <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Speed</th>
-                  <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Storage</th>
-                  <th class="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Price</th>
-                  <th class="w-10 title-font tracking-wider font-medium text-white text-sm bg-gray-800 rounded-tr rounded-br"></th>
+                  <th className="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800 rounded-tl rounded-bl">Product</th>
+                  <th className="px-4 py-3 title-font tracking-wider font-medium text-white text-sm bg-gray-800">Price</th>
+                  <th className="w-10 title-font tracking-wider font-medium text-white text-sm bg-gray-800 rounded-tr rounded-br"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="px-4 py-3">Start</td>
-                  <td class="px-4 py-3">5 Mb/s</td>
-                  <td class="px-4 py-3">15 GB</td>
-                  <td class="px-4 py-3 text-lg text-white">Free</td>
-                  <td class="w-10 text-center">
-                  <Checkbox
-                    label="My Value"
-                    value={1}
-                    onChange={handleChangeTwo(2)}
-                />
-                  </td>
-                </tr>
-                <tr>
-                  <td class="border-t-2 border-gray-800 px-4 py-3">Pro</td>
-                  <td class="border-t-2 border-gray-800 px-4 py-3">25 Mb/s</td>
-                  <td class="border-t-2 border-gray-800 px-4 py-3">25 GB</td>
-                  <td class="border-t-2 border-gray-800 px-4 py-3 text-lg text-white">$24</td>
-                  <td class="border-t-2 border-gray-800 w-10 text-center">
-                    <input name="plan" type="checkbox"></input>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="border-t-2 border-gray-800 px-4 py-3">Business</td>
-                  <td class="border-t-2 border-gray-800 px-4 py-3">36 Mb/s</td>
-                  <td class="border-t-2 border-gray-800 px-4 py-3">40 GB</td>
-                  <td class="border-t-2 border-gray-800 px-4 py-3 text-lg text-white">$50</td>
-                  <td class="border-t-2 border-gray-800 w-10 text-center">
-                    <input name="plan" type="checkbox"></input>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="border-t-2 border-b-2 border-gray-800 px-4 py-3">Exclusive</td>
-                  <td class="border-t-2 border-b-2 border-gray-800 px-4 py-3">48 Mb/s</td>
-                  <td class="border-t-2 border-b-2 border-gray-800 px-4 py-3">120 GB</td>
-                  <td class="border-t-2 border-b-2 border-gray-800 px-4 py-3 text-lg text-white">$72</td>
-                  <td class="border-t-2 border-b-2 border-gray-800 w-10 text-center">
-                    <input name="plan" type="checkbox"></input>
-                  </td>
-                </tr>
+                {data.map((item, index) => (
+                  <tr key={index}>
+                    <td className="px-4 py-3">{item.product}</td>
+                    <td className="px-4 py-3 text-lg text-white">${item.price}</td>
+                    <td className="px-4 py-3 text-lg text-white">${item.id}</td>
+                    <td className="w-10 text-center">
+  <input type="checkbox" name="checkbox1" value={item.id}></input>
+   </td>
+                  </tr>
+                ))}
               </tbody>
-            </table>
+            </table> */}
+
+<MaterialReactTable columns={columns} data={data} />
+      <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"  onClick={getCheckedValues}>Button</button>
+            
             </div>
-            <div class="flex flex-wrap -mx-2">
-              <div class="px-2 w-1/2">
-                <div class="flex flex-wrap w-full bg-gray-800 sm:py-24 py-16 sm:px-10 px-6 relative">
-                  <img alt="gallery" class="w-full object-cover h-full object-center block opacity-25 absolute inset-0" src="https://dummyimage.com/542x460"></img>
-                  <div class="text-center relative z-10 w-full">
-                    <h2 class="text-xl text-white font-medium title-font mb-2">Shooting Stars</h2>
-                    <p class="leading-relaxed">Skateboard +1 mustache fixie paleo lumbersexual.</p>
-                    <a class="mt-3 text-indigo-300 inline-flex items-center">Learn More
-                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                        <path d="M5 12h14M12 5l7 7-7 7"></path>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="px-2 w-1/2">
-                <div class="flex flex-wrap w-full bg-gray-800 sm:py-24 py-16 sm:px-10 px-6 relative">
-                  <img alt="gallery" class="w-full object-cover h-full object-center block opacity-25 absolute inset-0" src="https://dummyimage.com/542x420"></img>
-                  <div class="text-center relative z-10 w-full">
-                    <h2 class="text-xl text-white font-medium title-font mb-2">Shooting Stars</h2>
-                    <p class="leading-relaxed">Skateboard +1 mustache fixie paleo lumbersexual.</p>
-                    <a class="mt-3 text-indigo-300 inline-flex items-center">Learn More
-                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                        <path d="M5 12h14M12 5l7 7-7 7"></path>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </section>
+
 )};
 
 export default Sell;
