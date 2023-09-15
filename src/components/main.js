@@ -4,6 +4,9 @@ import Manuboard from './manuDashboard';
 import { MaterialReactTable } from 'material-react-table';
 
 function Main({state}) { 
+<<<<<<< HEAD
+    const [detail, setDetail] = useState("");
+=======
   const [detail, setDetail] = useState([]);
   var data;
   var status = [
@@ -45,6 +48,7 @@ function Main({state}) {
       ],
       [],
     );
+>>>>>>> eae6786cc0ae72b2bcded4b7ed261e15bdaf58c0
   useEffect(() => {
     const { contract } = state;
     const getDetail = async () => {
