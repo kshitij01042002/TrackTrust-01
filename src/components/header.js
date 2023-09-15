@@ -1,26 +1,37 @@
 import React from 'react';
 import ABI from "./ABI.json";
+import { useEffect, useState} from 'react';
 import Web3 from "web3";
 import { Link } from 'react-router-dom'; 
 
-function Header({ saveState }) { 
-  const init = async () => {
-    try {
-      const web3 = new Web3(window.ethereum);
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const contract = new web3.eth.Contract(
-        ABI,
-        "0x31f535A7EfdB675C8FE516080d46Ce75dE4b7a6e"
-      );
-      saveState({ web3: web3, contract: contract });
-      console.log(contract);
-      console.log(accounts[0]);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+function Header({ saveState }) {
+  const [user, setUser] = useState("Consumer");
+  useEffect(() => {
+    // Define an async function for fetching user role and update user state
+    const fetchUserRole = async () => {
+      try {
+        const web3 = new Web3(window.ethereum);
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const contract = new web3.eth.Contract(
+          ABI,
+          "0x62d39cdA1207d3C78b5F8902837476800b389389"
+        );
+
+        const nameText = await contract.methods.getUserRole(accounts[0]).call();
+        setUser(nameText); // Update user state based on the fetched role
+        console.log(nameText);
+        console.log(contract);
+        console.log(accounts[0]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    // Call the async function when the component mounts
+    fetchUserRole();
+  }, []);
   return(
 <header class="text-gray-400 bg-gray-900 body-font">
   <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -33,12 +44,50 @@ function Header({ saveState }) {
     </a>
     
     <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-      <a class="mr-5 hover:text-white">First Link</a>
-      <a class="mr-5 hover:text-white">Second Link</a>
-      <a class="mr-5 hover:text-white">Third Link</a>
-      <a class="mr-5 hover:text-white">Fourth Link</a>
+      <>
+    {(user === "Manufacturer") ? (
+      <>
+      <a class="mr-5 hover:text-white" href='/'>Dashboard</a>
+      <a class="mr-5 hover:text-white" href='/addProduct'>Add Product</a>
+      <a class="mr-5 hover:text-white" href="/sell">Sell</a>
+      </>
+      ) : (
+        <p></p>
+      )}
+      </>
+      <>
+    {(user === "Customer") ? (
+      <>
+      <a class="mr-5 hover:text-white" href='/'>Home</a>
+      </>
+      ) : (
+        <p></p>
+      )}
+      </>
+      <>
+    {(user === "Retailer") ? (
+      <>
+      <a class="mr-5 hover:text-white" href='/'>Dashboard</a>
+      <a class="mr-5 hover:text-white" href='/addProduct'>Add Product</a>
+      <a class="mr-5 hover:text-white" href="/sell">Sell</a>
+      </>
+      ) : (
+        <p></p>
+      )}
+      </>
+      <>
+    {(user === "Warehouse") ? (
+      <>
+      <a class="mr-5 hover:text-white" href='/'>Dashboard</a>
+      <a class="mr-5 hover:text-white" href='/addProduct'>Add Product</a>
+      <a class="mr-5 hover:text-white" href="/sell">Sell</a>
+      </>
+      ) : (
+        <p></p>
+      )}
+      </>
     </nav>
-    <button class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0" onClick={init}>Button
+    <button class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">Button
       <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
         <path d="M5 12h14M12 5l7 7-7 7"></path>
       </svg>
