@@ -10,7 +10,8 @@ import UserData from "./components/UserData";
 import { useState, useEffect } from "react";
 import AddProduct from "./components/AddProduct";
 import Sell from "./components/Sell";
-import Manuboard from "./components/manuDashboard";
+import WarehouseIn from "./components/warehouse_in";
+import WarehouseOut from "./components/warehouse_out";
 
 export default function App() {
 
@@ -35,6 +36,8 @@ export default function App() {
         <Route path="/" element={<Main state={state}/>}></Route>
         <Route path="/addProduct" element={<AddProduct state={state} />}></Route>
         <Route path="/sell" element={<Sell state={state}/>}></Route>
+        <Route path="/warehousein" element={<WarehouseIn state={state}/>}></Route>
+        <Route path="/warehouseout" element={<WarehouseOut state={state}/>}></Route>
       </Routes>
     </BrowserRouter>
     <Footer></Footer>
