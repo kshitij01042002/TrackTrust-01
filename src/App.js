@@ -1,12 +1,14 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route  } from "react-router-dom";
+import { BrowserRouter, Routes,Switch, Route  } from "react-router-dom";
 import About from "./components/About"
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Main from "./components/main";
 import Admin from "./components/Admin";
 import Customer from "./components/customer";
+import UserData from "./components/UserData";
 import { useState } from "react";
+
 
 export default function App() {
 
