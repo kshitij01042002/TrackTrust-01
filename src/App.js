@@ -10,11 +10,8 @@ import UserData from "./components/UserData";
 import { useState, useEffect } from "react";
 import AddProduct from "./components/AddProduct";
 import Sell from "./components/Sell";
-<<<<<<< HEAD
 import Verify from "./components/verify";
-=======
 import Manuboard from "./components/manuDashboard";
->>>>>>> eae6786cc0ae72b2bcded4b7ed261e15bdaf58c0
 
 export default function App() {
 
