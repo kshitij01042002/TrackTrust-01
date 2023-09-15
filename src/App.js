@@ -4,6 +4,7 @@ import About from "./components/About"
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Main from "./components/main";
+import Customer from "./components/customer";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="about" element={<About />}></Route>
+        <Route path="customer" element={<Customer />}></Route>
         <Route path="/" element={<Main />}></Route>
       </Routes>
     </BrowserRouter>
