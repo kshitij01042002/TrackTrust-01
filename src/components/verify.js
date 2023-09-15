@@ -32,7 +32,7 @@ function Verify({state}){
     getDetail();
   }, [contract, imgId]);
     return(
-    <VerticalTimeline>
+    <VerticalTimeline style={{ background: "#5f8e98" }}>
   <VerticalTimelineElement
         className="vertical-timeline-element--work"
         contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
