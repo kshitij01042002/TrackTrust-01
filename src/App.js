@@ -7,8 +7,8 @@ import Main from "./components/main";
 import Admin from "./components/Admin";
 import Customer from "./components/customer";
 import UserData from "./components/UserData";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import AddProduct from "./components/AddProduct";
 
 export default function App() {
 
@@ -27,10 +27,12 @@ export default function App() {
     <Header saveState={saveState}></Header>
     <BrowserRouter>
       <Routes>
-        <Route path="admin" element={<Admin />}></Route>
+        <Route path="/addUser" element={<Admin />}></Route>
         <Route path="customer" element={<Customer />}></Route>
         <Route path="about" element={<About state={state} />}></Route>
         <Route path="/" element={<Main state={state}/>}></Route>
+        <Route path="/addProduct" element={<AddProduct state={state} />}></Route>
+
       </Routes>
     </BrowserRouter>
     <Footer></Footer>

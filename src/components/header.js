@@ -16,8 +16,9 @@ function Header({ saveState }) {
         });
         const contract = new web3.eth.Contract(
           ABI,
-          "0x62d39cdA1207d3C78b5F8902837476800b389389"
+          "0x31f535A7EfdB675C8FE516080d46Ce75dE4b7a6e"
         );
+        saveState({web3: web3, contract: contract})
 
         const nameText = await contract.methods.getUserRole(accounts[0]).call();
         setUser(nameText); // Update user state based on the fetched role
@@ -56,7 +57,7 @@ function Header({ saveState }) {
       )}
       </>
       <>
-    {(user === "Customer") ? (
+    {(user === "Customerds") ? (
       <>
       <a class="mr-5 hover:text-white" href='/'>Home</a>
       </>
@@ -81,6 +82,16 @@ function Header({ saveState }) {
       <a class="mr-5 hover:text-white" href='/'>Dashboard</a>
       <a class="mr-5 hover:text-white" href='/addProduct'>Add Product</a>
       <a class="mr-5 hover:text-white" href="/sell">Sell</a>
+      </>
+      ) : (
+        <p></p>
+      )}
+      </>
+      <>
+    {(user === "Customer") ? (
+      <>
+      <a class="mr-5 hover:text-white" href='/adminDashboard'>Dashboard</a>
+      <a class="mr-5 hover:text-white" href='/addUser'>Add User</a>
       </>
       ) : (
         <p></p>
