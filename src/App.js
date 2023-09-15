@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import AddProduct from "./components/AddProduct";
 import Sell from "./components/Sell";
 import Manuboard from "./components/manuDashboard";
+import Retailer from "./components/retailer";
 
 export default function App() {
 
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/" element={<Main state={state}/>}></Route>
         <Route path="/addProduct" element={<AddProduct state={state} />}></Route>
         <Route path="/sell" element={<Sell state={state}/>}></Route>
+        <Route path="/retailer" element={<Retailer state={state}/>}></Route>
       </Routes>
     </BrowserRouter>
     <Footer></Footer>
