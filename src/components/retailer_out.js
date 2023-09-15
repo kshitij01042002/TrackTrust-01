@@ -1,9 +1,8 @@
 import React, {useEffect, useState, useMemo} from 'react';
-import Web3 from "web3";
 import { MaterialReactTable } from 'material-react-table';
 
 
-function Retailer({state}) {
+function RetailerOut({state}) {
     //should be memoized or stable
     const columns = useMemo(
         () => [
@@ -42,26 +41,20 @@ function Retailer({state}) {
         checkedValues.push(checkbox.value);
       }
     });
-
-    console.log(checkedValues)
-    
   }
   useEffect(() => {
     const { contract } = state;
     const getDetail = async () => {
-      const web3 = new Web3(window.ethereum);
-      const accounts = await web3.eth.getAccounts();
       const nameText = await contract.methods
       .getAllProducts()
       .call();
       setDetail(nameText);
-      console.log(nameText)
     };
     contract && getDetail();
   }, [state]);
 
   data = detail
-  .filter((item) => item.stage === "1").map((item, index) => ({
+  .filter((item) => item.stage === "3").map((item, index) => ({
     product: item.name,
     desc: item.description,
     price: item.price,
@@ -73,8 +66,8 @@ function Retailer({state}) {
       <section className="text-gray-400 bg-gray-900 body-font">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
-          <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-white">SELL Table</h1>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Select the Products to Dispatch</p>
+          <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-white">Retailer Dispatch Products</h1>
+          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Select the Products to dispatch</p>
         </div>
         <div className="lg:w-2/3 w-full mx-auto overflow-auto">
           <MaterialReactTable
@@ -82,9 +75,9 @@ function Retailer({state}) {
             data={data}
           />
         </div>
-        <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-6 " onClick={getCheckedValues}>SELL</button>
+        <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-6 " onClick={getCheckedValues}>Dispatch</button>
       </div>
     </section>
 )};
 
-export default Retailer;
+export default RetailerOut;

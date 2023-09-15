@@ -11,10 +11,12 @@ import { useState, useEffect } from "react";
 import AddProduct from "./components/AddProduct";
 import Sell from "./components/Sell";
 import Manuboard from "./components/manuDashboard";
-import Retailer from "./components/retailer";
+import Retailer from "./components/retailer_in";
 import WarehouseIn from "./components/warehouse_in";
 import WarehouseOut from "./components/warehouse_out";
 import Verify from "./components/verify";
+import RetailerIn from "./components/retailer_in";
+import RetailerOut from "./components/retailer_out";
 
 export default function App() {
 
@@ -42,7 +44,10 @@ export default function App() {
           <Route path=":imgId" element={<Verify state={state} />} />
         </Route>
         <Route path="/sell" element={<Sell state={state}/>}></Route>
-        <Route path="/retailer" element={<Retailer state={state}/>}></Route>
+
+        <Route path="/retailerin" element={<RetailerIn state={state}/>}></Route>
+
+        <Route path="/retailerout" element={<RetailerOut state={state}/>}></Route>
         <Route path="/warehousein" element={<WarehouseIn state={state}/>}></Route>
         <Route path="/warehouseout" element={<WarehouseOut state={state}/>}></Route>
       </Routes>
