@@ -1,12 +1,14 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route  } from "react-router-dom";
+import { BrowserRouter, Routes,Switch, Route  } from "react-router-dom";
 import About from "./components/About"
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Main from "./components/main";
 import Admin from "./components/Admin";
 import Customer from "./components/customer";
-import { useState } from "react";
+import UserData from "./components/UserData";
+import { useState, useEffect } from "react";
+import AddProduct from "./components/AddProduct";
 import Sell from "./components/Sell";
 
 export default function App() {
@@ -26,10 +28,12 @@ export default function App() {
     <Header saveState={saveState}></Header>
     <BrowserRouter>
       <Routes>
-        <Route path="admin" element={<Admin />}></Route>
+        <Route path="/addUser" element={<Admin />}></Route>
         <Route path="customer" element={<Customer />}></Route>
         <Route path="about" element={<About state={state} />}></Route>
         <Route path="/" element={<Main state={state}/>}></Route>
+        <Route path="/addProduct" element={<AddProduct state={state} />}></Route>
+
         <Route path="/sell" element={<Sell state={state}/>}></Route>
       </Routes>
     </BrowserRouter>
