@@ -10,7 +10,11 @@ import UserData from "./components/UserData";
 import { useState, useEffect } from "react";
 import AddProduct from "./components/AddProduct";
 import Sell from "./components/Sell";
+<<<<<<< HEAD
 import Verify from "./components/verify";
+=======
+import Manuboard from "./components/manuDashboard";
+>>>>>>> eae6786cc0ae72b2bcded4b7ed261e15bdaf58c0
 
 export default function App() {
 
@@ -30,7 +34,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/addUser" element={<Admin />}></Route>
-        <Route path="customer" element={<Customer />}></Route>
+        <Route path="customer" element={<Customer state={state}/>}></Route>
         <Route path="about" element={<About state={state} />}></Route>
         <Route path="/" element={<Main state={state}/>}></Route>
         <Route path="/addProduct" element={<AddProduct state={state} />}></Route>
