@@ -16,7 +16,7 @@ function Header({ saveState }) {
         });
         const contract = new web3.eth.Contract(
           ABI,
-          "0x31f535A7EfdB675C8FE516080d46Ce75dE4b7a6e"
+          "0x4202744c81c21e23D99542dFad03Ebf60F52BA7d"
         );
         saveState({web3: web3, contract: contract})
 
