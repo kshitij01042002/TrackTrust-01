@@ -1,6 +1,28 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import Web3 from "web3";
 
-const Main = () => (
+function Main({state}) { 
+    const [detail, setDetail] = useState("");
+  const [blobUrl, setBlobUrl] = useState("");
+  useEffect(() => {
+    const { contract } = state;
+    const getDetail = async () => {
+      const web3 = new Web3(window.ethereum);
+      const accounts = await web3.eth.getAccounts();
+      const nameText = await contract.methods
+        .Product_Array(0)
+        .call();
+      console.log(nameText);
+      setDetail(nameText);
+
+      // 
+
+    };
+    contract && getDetail();
+  }, [state]);
+    console.log("Main");
+
+    return(
     <section class="text-gray-400 bg-gray-900 body-font">
   <div class="container px-5 py-24 mx-auto flex flex-wrap">
     <div class="lg:w-2/3 mx-auto">
@@ -89,6 +111,6 @@ const Main = () => (
     </div>
   </div>
 </section>
-);
+)};
 
 export default Main;
