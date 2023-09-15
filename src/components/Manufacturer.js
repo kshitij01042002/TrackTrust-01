@@ -2,10 +2,8 @@ import React, { useEffect, useState, useMemo } from "react";
 import Web3 from "web3";
 import Manuboard from "./manuDashboard";
 import { MaterialReactTable } from "material-react-table";
-import { Redirect,Route, Navigate } from 'react-router-dom';
-import Customer from "./customer";
 
-function Main({ state }) {
+function Manufacturer({ state }) {
   const [detail, setDetail] = useState([]);
   const [user, setUser] = useState("");
   var data;
@@ -90,54 +88,35 @@ function Main({ state }) {
   }));
 
    return (
-    <>
-      <>
-        {user === "Manufacturer" ? (
-          <>
-            <Navigate to="/manufacturer" />
-          </>
-        ) : (
-          <p></p>
-        )}
-      </>
-      <>
-        {user === "Customer" ? (
-          <>
-            <Navigate to="/customer" />
-          </>
-        ) : (
-          <p></p>
-        )}
-      </>
-      <>
-        {user === "Admin" ? (
-          <>
-            <Navigate to="/admin_dash" />
-          </>
-        ) : (
-          <p></p>
-        )}
-      </>
-      <>
-        {user === "Warehouse" ? (
-          <>
-            <Navigate to="/warehousein" />
-          </>
-        ) : (
-          <p></p>
-        )}
-      </>
-      <>
-        {user === "Retailer" ? (
-          <>
-            <Navigate to="/retailerin" />
-          </>
-        ) : (
-          <p></p>
-        )}
-      </>
-    </>
+            <section class="text-gray-400 bg-gray-900 body-font">
+              <div class="container px-5 py-24 mx-auto flex flex-wrap">
+                <div class="lg:w-2/3 mx-auto">
+                  <div class="flex flex-wrap w-full bg-gray-800 py-32 px-10 relative">
+                    <div class="flex flex-col text-center w-full mb-2">
+                      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">
+                        Your Products
+                      </h1>
+                    </div>
+                    <Manuboard state={state}></Manuboard>
+                    <div class="mt-2">
+                      <div class="flex flex-col text-center w-full mb-2">
+                        <div class="flex flex-col text-center w-full mb-2">
+                          <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">
+                            Your Inventory
+                          </h1>
+                        </div>
+                        <MaterialReactTable
+                          class="mt-9"
+                          columns={columns}
+                          data={data}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
   );
 }
 
-export default Main;
+export default Manufacturer;

@@ -22,9 +22,6 @@ function Header({ saveState }) {
 
         const nameText = await contract.methods.getUserRole(accounts[0]).call();
         setUser(nameText); // Update user state based on the fetched role
-        console.log(nameText);
-        console.log(contract);
-        console.log(accounts[0]);
       } catch (err) {
         console.log(err);
       }
@@ -57,9 +54,11 @@ function Header({ saveState }) {
       )}
       </>
       <>
-    {(user === "Customerds") ? (
+    {(user === "Customer") ? (
       <>
       <a class="mr-5 hover:text-white" href='/'>Home</a>
+      <a class="mr-5 hover:text-white" href='/verify'>Verify</a>
+      <a class="mr-5 hover:text-white" href='/verify'>Track</a>
       </>
       ) : (
         <p></p>
@@ -68,9 +67,8 @@ function Header({ saveState }) {
       <>
     {(user === "Retailer") ? (
       <>
-      <a class="mr-5 hover:text-white" href='/'>Dashboard</a>
-      <a class="mr-5 hover:text-white" href='/addProduct'>Add Product</a>
-      <a class="mr-5 hover:text-white" href="/sell">Sell</a>
+      <a class="mr-5 hover:text-white" href='/'>Receive Products</a>
+      <a class="mr-5 hover:text-white" href='/retailerout'>Dispatch Product</a>
       </>
       ) : (
         <p></p>
@@ -79,18 +77,17 @@ function Header({ saveState }) {
       <>
     {(user === "Warehouse") ? (
       <>
-      <a class="mr-5 hover:text-white" href='/'>Dashboard</a>
-      <a class="mr-5 hover:text-white" href='/addProduct'>Add Product</a>
-      <a class="mr-5 hover:text-white" href="/sell">Sell</a>
+      <a class="mr-5 hover:text-white" href='/'>Receive Products</a>
+      <a class="mr-5 hover:text-white" href='/warehouseout'>Dispatch Product</a>
       </>
       ) : (
         <p></p>
       )}
       </>
       <>
-    {(user === "Customer") ? (
+    {(user === "Admin") ? (
       <>
-      <a class="mr-5 hover:text-white" href='/adminDashboard'>Dashboard</a>
+      <a class="mr-5 hover:text-white" href='/'>Dashboard</a>
       <a class="mr-5 hover:text-white" href='/addUser'>Add User</a>
       </>
       ) : (

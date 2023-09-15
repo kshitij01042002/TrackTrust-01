@@ -13,6 +13,7 @@ import Sell from "./components/Sell";
 import WarehouseIn from "./components/warehouse_in";
 import WarehouseOut from "./components/warehouse_out";
 import Verify from "./components/verify";
+import Manufacturer from "./components/Manufacturer";
 
 export default function App() {
 
@@ -41,6 +42,7 @@ export default function App() {
         </Route>
         <Route path="/sell" element={<Sell state={state}/>}></Route>
         <Route path="/warehousein" element={<WarehouseIn state={state}/>}></Route>
+        <Route path="/manufacturer" element={<Manufacturer state={state}/>}></Route>
         <Route path="/warehouseout" element={<WarehouseOut state={state}/>}></Route>
       </Routes>
     </BrowserRouter>
