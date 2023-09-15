@@ -12,7 +12,7 @@ function Manuboard({state}) {
     var available=0;
     var delivered=0;
     var other=0;
-    
+
   useEffect(() => {
     const { contract } = state;
     const getDetail = async () => {
@@ -29,10 +29,10 @@ function Manuboard({state}) {
 
   console.log(detail)
   detail.forEach((item) =>{
-      if(item.status === 0) {
+      if(item.stage == 0) {
         available++;
       }
-      else if(item.status === 7) {
+      else if(item.stage == 7) {
         delivered++;
       } else {
         other++;

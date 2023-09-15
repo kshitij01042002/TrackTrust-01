@@ -3,91 +3,36 @@ import Web3 from "web3";
 import { MaterialReactTable } from 'material-react-table';
 
 
-function Sell({state}) { 
-//nested data is ok, see accessorKeys in ColumnDef below
-const data = [
-    {
-      name: {
-        firstName: 'John',
-        lastName: 'Doe',
-      },
-      address: '261 Erdman Ford',
-      city: 'East Daphne',
-      state: 'Kentucky',
-      buy: <input type="checkbox" name="checkbox1"></input>
-    },
-    {
-      name: {
-        firstName: 'Jane',
-        lastName: 'Doe',
-      },
-      address: '769 Dominic Grove',
-      city: 'Columbus',
-      state: 'Ohio',
-      buy: <input type="checkbox" name="checkbox1"></input>
-    },
-    {
-      name: {
-        firstName: 'Joe',
-        lastName: 'Doe',
-      },
-      address: '566 Brakus Inlet',
-      city: 'South Linda',
-      state: 'West Virginia',
-      buy: <input type="checkbox" name="checkbox1"></input>
-    },
-    {
-      name: {
-        firstName: 'Kevin',
-        lastName: 'Vandy',
-      },
-      address: '722 Emie Stream',
-      city: 'Lincoln',
-      state: 'Nebraska',
-      buy: <input type="checkbox" name="checkbox1"></input>
-    },
-    {
-      name: {
-        firstName: 'Joshua',
-        lastName: 'Rolluffs',
-      },
-      address: '32188 Larkin Turnpike',
-      city: 'Charleston',
-      state: 'South Carolina',
-      buy: <input type="checkbox" name="checkbox1"></input>
-    },
-  ];
-
+function Sell({state}) {
     //should be memoized or stable
     const columns = useMemo(
         () => [
           {
             accessorKey: 'product', //access nested data with dot notation
-            header: 'First Name',
+            header: 'Product Name',
             size: 150,
           },
           {
             accessorKey: 'desc',
-            header: 'Last Name',
+            header: 'Product description',
             size: 150,
           },
           {
             accessorKey: 'price', //normal accessorKey
-            header: 'Address',
+            header: 'Price',
             size: 200,
           },
           {
             accessorKey: 'buy',
-            header: 'Buy',
+            header: 'Select',
             size: 150,
           },
         ],
         [],
       );
     const [detail, setDetail] = useState([]);
-  const [blobUrl, setBlobUrl] = useState("");
   const checkedValues = [];
-  var data1;
+  var data;
   
   const getCheckedValues = () => {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -115,7 +60,8 @@ const data = [
     contract && getDetail();
   }, [state]);
 
-  data1 = detail.map((item, index) => ({
+  data = detail
+  .filter((item) => item.stage === "1").map((item, index) => ({
     product: item.name,
     desc: item.description,
     price: item.price,
@@ -128,20 +74,16 @@ const data = [
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
           <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-white">SELL Table</h1>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Place the orders from this page</p>
+          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Select the Products to Dispatch</p>
         </div>
         <div className="lg:w-2/3 w-full mx-auto overflow-auto">
           <MaterialReactTable
             columns={columns}
-            data={data1}
-            cellStyle={{ background: 'black'}}
+            data={data}
           />
         </div>
+        <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-6 " onClick={getCheckedValues}>SELL</button>
       </div>
-
-      <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onClick={getCheckedValues}>
-          BUY
-        </button>
     </section>
 )};
 
