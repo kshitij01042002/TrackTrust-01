@@ -3,8 +3,7 @@ import Web3 from "web3";
 import Manuboard from './manuDashboard';
 
 function Main({state}) { 
-    const [detail, setDetail] = useState("");
-  const [blobUrl, setBlobUrl] = useState("");
+  const [detail, setDetail] = useState("");
   useEffect(() => {
     const { contract } = state;
     const getDetail = async () => {

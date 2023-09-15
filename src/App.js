@@ -30,7 +30,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/addUser" element={<Admin />}></Route>
-        <Route path="customer" element={<Customer />}></Route>
+        <Route path="customer" element={<Customer state={state}/>}></Route>
         <Route path="about" element={<About state={state} />}></Route>
         <Route path="/" element={<Main state={state}/>}></Route>
         <Route path="/addProduct" element={<AddProduct state={state} />}></Route>
