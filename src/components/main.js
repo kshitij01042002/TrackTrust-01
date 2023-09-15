@@ -3,7 +3,6 @@ import Web3 from "web3";
 
 function Main({state}) { 
     const [detail, setDetail] = useState("");
-  const [blobUrl, setBlobUrl] = useState("");
   useEffect(() => {
     const { contract } = state;
     const getDetail = async () => {
