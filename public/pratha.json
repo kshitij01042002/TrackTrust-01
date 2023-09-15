@@ -1,0 +1,13 @@
+[
+    { 
+    "product": "Start", 
+    "price": 0 
+  },
+    { 
+      "product": "Pro", 
+      "price": 24 
+    },
+    { "product": "Business", "price": 50 },
+    { "product": "Exclusive", "price": 72 },
+    { "product": "Exclusive", "price": 72 }
+  ]
