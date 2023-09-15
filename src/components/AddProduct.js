@@ -6,6 +6,7 @@ function AddProduct({ state }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+  const [data, setData] = useState("");
 
   const changeContract = async (event) => {
     try {
@@ -19,16 +20,22 @@ function AddProduct({ state }) {
         const { contract, web3 } = state;
         console.log(web3)
         const accounts = await web3.eth.getAccounts();
+        const weiValue = web3.utils.toWei(price, "ether");
         await contract.methods
-          .addProduct(name, description, Number(price))
+          .addProduct(name, description, weiValue)
           .send({ from: accounts[0] });
         console.log("Hii");
+        let id = await contract.methods.ProductId().call();
+        setData("http://127.0.0.1:5173/verify/" + id);
+        console.log("http://127.0.0.1:5173/verify/" + id);
       }
     } catch (error) {
       console.log(error);
     }
   };
     
+
+
 
   // Function to handle form submission
   const handleSubmit = (e) => {
@@ -95,6 +102,13 @@ function AddProduct({ state }) {
                   />
                 </div>
               </div>
+              <img
+                          src={`https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=${data}`}
+                          style={{
+                            width: "90px",
+                          }}
+                          alt="Signature"
+                        />
               <div className="p-2 w-full">
                 <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" type="submit" onClick={changeContract}>Add Product</button>
               </div>

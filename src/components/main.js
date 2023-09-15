@@ -39,7 +39,7 @@ function Main({state}) {
         },
         {
           accessorKey: 'link',
-          header: 'Verify',
+          header: 'Track',
           size: 150,
         },
       ],
@@ -64,7 +64,7 @@ function Main({state}) {
       desc: item.description,
       price: item.price,
       status: status[item.stage],
-      link: <a class="text-indigo-400 inline-flex items-center" href={`verify/${item.id}`} >Verify
+      link: <a class="text-indigo-400 inline-flex items-center" href={`verify/${item.id}`} >Track
       <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
         <path d="M5 12h14M12 5l7 7-7 7"></path>
       </svg>
