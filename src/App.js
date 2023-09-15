@@ -4,15 +4,27 @@ import About from "./components/About"
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Main from "./components/main";
+import { useState } from "react";
 
 export default function App() {
+
+  const [state, setState] = useState({
+    web3: null,
+    contract: null,
+  });
+
+  const saveState = (state) => {
+    console.log(state);
+    setState(state);
+  };
+
   return (
     <>
-    <Header></Header>
+    <Header saveState={saveState}></Header>
     <BrowserRouter>
       <Routes>
-        <Route path="about" element={<About />}></Route>
-        <Route path="/" element={<Main />}></Route>
+        <Route path="about" element={<About state={state} />}></Route>
+        <Route path="/" element={<Main state={state}/>}></Route>
       </Routes>
     </BrowserRouter>
     <Footer></Footer>
