@@ -7,6 +7,7 @@ import Main from "./components/main";
 import Admin from "./components/Admin";
 import Customer from "./components/customer";
 import { useState } from "react";
+import Sell from "./components/Sell";
 
 export default function App() {
 
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="customer" element={<Customer />}></Route>
         <Route path="about" element={<About state={state} />}></Route>
         <Route path="/" element={<Main state={state}/>}></Route>
+        <Route path="/sell" element={<Sell state={state}/>}></Route>
       </Routes>
     </BrowserRouter>
     <Footer></Footer>
