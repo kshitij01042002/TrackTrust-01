@@ -10,6 +10,7 @@ import UserData from "./components/UserData";
 import { useState, useEffect } from "react";
 import AddProduct from "./components/AddProduct";
 import Sell from "./components/Sell";
+import Manuboard from "./components/manuDashboard";
 
 export default function App() {
 
@@ -33,7 +34,6 @@ export default function App() {
         <Route path="about" element={<About state={state} />}></Route>
         <Route path="/" element={<Main state={state}/>}></Route>
         <Route path="/addProduct" element={<AddProduct state={state} />}></Route>
-
         <Route path="/sell" element={<Sell state={state}/>}></Route>
       </Routes>
     </BrowserRouter>

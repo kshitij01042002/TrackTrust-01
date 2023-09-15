@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Web3 from "web3";
+import Manuboard from './manuDashboard';
 
 function Main({state}) { 
     const [detail, setDetail] = useState("");
@@ -14,9 +15,6 @@ function Main({state}) {
         .call();
       console.log(nameText);
       setDetail(nameText);
-
-      // 
-
     };
     contract && getDetail();
   }, [state]);
@@ -27,6 +25,7 @@ function Main({state}) {
   <div class="container px-5 py-24 mx-auto flex flex-wrap">
     <div class="lg:w-2/3 mx-auto">
       <div class="flex flex-wrap w-full bg-gray-800 py-32 px-10 relative mb-4">
+          <Manuboard state={state}></Manuboard>
           
       <table class="table-auto w-full text-left whitespace-no-wrap">
         <thead>
