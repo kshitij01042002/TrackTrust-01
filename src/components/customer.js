@@ -3,47 +3,14 @@ import Web3 from 'web3';
 import { MaterialReactTable } from 'material-react-table';
 
 function Customer({ state }) {
-  const [detail, setDetail] = useState('');
 
-
-  
-
-  useEffect(() => {
-    const { contract } = state;
-    const getDetail = async () => {
-      const web3 = new Web3(window.ethereum);
-      const accounts = await web3.eth.getAccounts();
-      const nameText = await contract.methods.Manufacture_Array(accounts[0]).call();
-      setDetail(nameText);
-    };
-    contract && getDetail();
-  }, [state]);
-
-  // Example data for MaterialReactTable
-  const data = [
-    {
-      product: '261 Erdman Ford',
-      price: 'East Daphne',
-      description: 'adsadsdsadsa',
-      buy: (
-        <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-          BUY
-        </button>
-      ),
-    },
-    {
-      product: '261 Erdman Ford',
-      price: 'East Daphne',
-      description: 'adsadsdsadsa',
-      buy: (
-        <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-          BUY
-        </button>
-      ),
-    },
-    // Add more data rows as needed
-  ];
-
+const [detail, setDetail] = useState([]);
+var data1;
+const buyProduct = (ids) => {
+    console.log(ids);
+    return ids;
+    
+  }
   // Define columns for MaterialReactTable
   const columns = useMemo(
     () => [
@@ -58,7 +25,7 @@ function Customer({ state }) {
         size: 150,
       },
       {
-        accessorKey: 'description',
+        accessorKey: 'desc',
         header: 'Description',
         size: 150,
       },
@@ -70,6 +37,29 @@ function Customer({ state }) {
     ],
     []
   );
+  useEffect(() => {
+    const { contract } = state;
+    const getDetail = async () => {
+      const web3 = new Web3(window.ethereum);
+      const accounts = await web3.eth.getAccounts();
+      const nameText = await contract.methods
+      .getAllProducts()
+      .call();
+      setDetail(nameText);
+      console.log(nameText)
+    };
+    contract && getDetail();
+  }, [state]);
+  
+  data1 = detail.filter((item) => item.stage === "0").map((item, index) => ({
+    product: item.name,
+    desc: item.description ,
+    price: item.price,
+    buy: <button name="butt"  value={item.id} className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onClick={() => buyProduct(item.id)}>
+          BUY
+        </button>
+    
+  }));
 
   return (
     <section className="text-gray-400 bg-gray-900 body-font">
@@ -81,7 +71,7 @@ function Customer({ state }) {
         <div className="lg:w-2/3 w-full mx-auto overflow-auto">
           <MaterialReactTable
             columns={columns}
-            data={data}
+            data={data1}
             cellStyle={{ background: 'black'}}
           />
         </div>
