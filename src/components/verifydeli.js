@@ -10,6 +10,7 @@ function Verifydeli({state}){
   console.log(imgId);
   const [detail, setDetail] = useState("");
   const [detail1, setDetail1] = useState("");
+  
   useEffect(() => {
     if (!contract || !imgId) {
       return; // Exit if contract or userId is not available
@@ -53,7 +54,8 @@ function Verifydeli({state}){
         iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
         style={{ position: 'relative' }} // Add relative positioning
       >
-    <h3 className="vertical-timeline-element-title">PRODUCT NAME :</h3>
+        
+    <h3 className="vertical-timeline-element-title">PHASE</h3>
     <h3 className="vertical-timeline-element-title">{detail[2]}</h3>
         <br></br>
     <h3 className="vertical-timeline-element-title">Manufacturer ADDRESS:</h3>
