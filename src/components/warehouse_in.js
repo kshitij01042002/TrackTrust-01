@@ -33,14 +33,22 @@ function WarehouseIn({state}) {
   const checkedValues = [];
   var data;
   
-  const getCheckedValues = () => {
+  const getCheckedValues = async() => {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   
     checkboxes.forEach((checkbox) => {
       if (checkbox.checked) {
         checkedValues.push(checkbox.value);
       }
+
     });
+    const { contract, web3 } = state;
+        console.log(web3)
+        const accounts = await web3.eth.getAccounts();
+        await contract.methods
+          .updateStagetoWarehouseIn(checkedValues)
+          .send({ from: accounts[0] });
+        console.log("Hii");
   }
   useEffect(() => {
     const { contract } = state;
@@ -54,7 +62,7 @@ function WarehouseIn({state}) {
   }, [state]);
 
   data = detail
-  .filter((item) => item.stage === "3").map((item, index) => ({
+  .filter((item) => item.stage === "2").map((item, index) => ({
     product: item.name,
     desc: item.description,
     price: item.price,

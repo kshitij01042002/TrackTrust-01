@@ -38,6 +38,8 @@ contract app {
         string[] location;
         uint[] time;
         address manufacture_address;
+        address warehouse_address;
+        address retailer_address;
         address buyer;
         bool delivered;
         STAGE stage;
@@ -160,8 +162,14 @@ contract app {
             Product_Array[_productId].buyer == msg.sender,
             "Only the buyer can confirm"
         );
+        uint totalPrice = Product_Array[_productId].price;
+        uint manufacturerShare = (totalPrice * 30) / 100;  // 30% to the manufacturer
+        uint warehouseShare = (totalPrice * 50) / 100;    // 50% to the warehouse
+        uint retailerShare = totalPrice - manufacturerShare - warehouseShare; // Remaining to the retailer
+        payable(Product_Array[_productId].manufacture_address).transfer(manufacturerShare);
+        payable(Product_Array[_productId].warehouse_address).transfer(warehouseShare);
+        payable(Product_Array[_productId].retailer_address).transfer(retailerShare);
         Product_Array[_productId].delivered = true;
-        payable(Product_Array[_productId].manufacture_address).transfer(Product_Array[_productId].price);
     }
 
     function updateStagetoWarehouse(uint[] memory numbers) public {
@@ -176,6 +184,7 @@ contract app {
     function updateStagetoWarehouseIn(uint[] memory numbers) public {
         for (uint i = 0; i < numbers.length; i++) {
             Product_Array[numbers[i]].stage = STAGE.Warehouse_In;
+            Product_Array[numbers[i]].warehouse_address = msg.sender;
             Product_Array[numbers[i]].from.push("Warehouse In");
             Product_Array[numbers[i]].time.push(block.timestamp);
             Product_Array[numbers[i]].location.push(Warehouse_Array[msg.sender].location);
@@ -194,6 +203,7 @@ contract app {
     function updateStagetoRetailerIn(uint[] memory numbers) public {
         for (uint i = 0; i < numbers.length; i++) {
             Product_Array[numbers[i]].stage = STAGE.Retailer_In;
+            Product_Array[numbers[i]].retailer_address = msg.sender;
             Product_Array[numbers[i]].from.push("Retailer In");
             Product_Array[numbers[i]].time.push(block.timestamp);
             Product_Array[numbers[i]].location.push(Retailer_Array[msg.sender].location);
@@ -231,5 +241,29 @@ contract app {
         }
 
         return manufacturers;
+    }
+
+    function getAllWarehouses() public view returns (Warehouse[] memory) {
+        uint warehouseCount = Warehouse_Address_Array.length;
+        Warehouse[] memory warehouses = new Warehouse[](warehouseCount);
+
+        for (uint i = 0; i < warehouseCount; i++) {
+            address warehouseAddress = Warehouse_Address_Array[i];
+            warehouses[i] = Warehouse_Array[warehouseAddress];
+        }
+
+        return warehouses;
+    }
+    
+    function getAllRetailers() public view returns (Retailer[] memory) {
+        uint retailerCount = Retailer_Address_Array.length;
+        Retailer[] memory retailers = new Retailer[](retailerCount);
+
+        for (uint i = 0; i < retailerCount; i++) {
+            address retailerAddress = Retailer_Address_Array[i];
+            retailers[i] = Retailer_Array[retailerAddress];
+        }
+
+        return retailers;
     }
 }

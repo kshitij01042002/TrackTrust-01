@@ -33,7 +33,7 @@ function WarehouseOut({state}) {
   const checkedValues = [];
   var data;
   
-  const getCheckedValues = () => {
+  const getCheckedValues = async() => {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   
     checkboxes.forEach((checkbox) => {
@@ -41,6 +41,14 @@ function WarehouseOut({state}) {
         checkedValues.push(checkbox.value);
       }
     });
+
+    const { contract, web3 } = state;
+        console.log(web3)
+        const accounts = await web3.eth.getAccounts();
+        await contract.methods
+          .updateStagetoWarehouseOut(checkedValues)
+          .send({ from: accounts[0] });
+        console.log("Hii");
   }
   useEffect(() => {
     const { contract } = state;

@@ -6,8 +6,15 @@ function Customer({ state }) {
 
 const [detail, setDetail] = useState([]);
 var data1;
-const buyProduct = (ids) => {
+const buyProduct = async(ids) => {
+  const { contract, web3 } = state; 
+  const accounts = await web3.eth.getAccounts();
     console.log(ids);
+    const nameText = await contract.methods.Product_Array(ids).call();
+    console.log(nameText[3]);
+    await contract.methods
+        .buy(ids)
+        .send({ from: accounts[0], value: Number(nameText[3]), gas: 480000 });
     return ids;
     
   }

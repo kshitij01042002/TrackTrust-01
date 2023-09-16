@@ -34,7 +34,7 @@ function Sell({state}) {
   const checkedValues = [];
   var data;
   
-  const getCheckedValues = () => {
+  const getCheckedValues = async() => {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   
     checkboxes.forEach((checkbox) => {
@@ -43,7 +43,16 @@ function Sell({state}) {
       }
     });
 
-    console.log(checkedValues)
+    const { contract, web3 } = state;
+        console.log(web3)
+        const accounts = await web3.eth.getAccounts();
+        await contract.methods
+          .updateStagetoWarehouse(checkedValues)
+          .send({ from: accounts[0] });
+        console.log("Hii");
+
+    console.log(checkedValues);
+
     
   }
   useEffect(() => {
