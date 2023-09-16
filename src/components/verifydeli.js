@@ -10,8 +10,11 @@ function Verifydeli({state}){
   console.log(imgId);
   const [detail, setDetail] = useState("");
   const [detail1, setDetail1] = useState("");
+  const [phase, setPhase] = useState([]);
+  const [time, setTime] = useState([]);
+  const [place, setPlace] = useState([]);
   
-  useEffect(() => {
+  useEffect( () => {
     if (!contract || !imgId) {
       return; // Exit if contract or userId is not available
     }
@@ -22,14 +25,16 @@ function Verifydeli({state}){
         const nameText1 = await contract.methods.getProduct(imgId).call();
         console.log(nameText);
         console.log(nameText1);
-        console.log(imgId);
         setDetail(nameText); // Assuming 'img' is the property you want to retrieve
-        setDetail1(nameText1);
+        setPhase(nameText1[0])
+        setPlace(nameText1[1])
+        setTime(nameText1[2])
+        console.log(detail)
+        console.log(detail1);            
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-
     getDetail();
   }, [contract, imgId]);
 
@@ -62,7 +67,7 @@ function Verifydeli({state}){
 >
   <div>
     <h3 className="vertical-timeline-element-title">
-      PRODUCT NAME : {detail1[1]}
+      PRODUCT NAME : {detail[1]}
     </h3>
   </div>
   <div>
@@ -81,183 +86,225 @@ function Verifydeli({state}){
 
         
   <VerticalTimeline style={{ background: "#5f8e98" }}>
-  <VerticalTimelineElement
-        className="vertical-timeline-element--work"
-        contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-        contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-        date="2011 - present"
-        iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-        style={{ position: 'relative' }} // Add relative positioning
-      >
+    <>
+        {(phase[0] != null) ? (
+        <>
+        <VerticalTimelineElement
+                className="vertical-timeline-element--work"
+                contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                date="2011 - present"
+                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                style={{ position: 'relative' }} // Add relative positioning
+            >
+                
+            <h3 className="vertical-timeline-element-title">PHASE</h3>
+            <h3 className="vertical-timeline-element-title">{phase[0]}</h3>
+                <br></br>
+            <h3 className="vertical-timeline-element-title">LOCATION:</h3>
+            <h3 className="vertical-timeline-element-title">{place[0]}</h3>
+                <br></br>
+            <h4 className="vertical-timeline-element-subtitle">TIME</h4>
+            <h4 className="vertical-timeline-element-subtitle">{new Date(time[0] * 1000).toLocaleString()}</h4>
+            
+        </VerticalTimelineElement>
+        </>
+        ) : (
+            <p></p>
+        )}
+    </>
+    <>
+        {(phase[1] != null) ? (
+        <>
         
+  <VerticalTimelineElement
+    className="vertical-timeline-element--work"
+    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+    date="2011 - present"
+    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+    
+  >
     <h3 className="vertical-timeline-element-title">PHASE</h3>
-    <h3 className="vertical-timeline-element-title">{detail[2]}</h3>
+    <h3 className="vertical-timeline-element-title">{phase[1]}</h3>
         <br></br>
-    <h3 className="vertical-timeline-element-title">Manufacturer ADDRESS:</h3>
-    <h3 className="vertical-timeline-element-title">{detail[4]}</h3>
+    <h3 className="vertical-timeline-element-title">LOCATION:</h3>
+    <h3 className="vertical-timeline-element-title">{place[1]}</h3>
         <br></br>
-    <h4 className="vertical-timeline-element-subtitle">PRICE</h4>
-    <h4 className="vertical-timeline-element-subtitle">{detail[3]}</h4>
-    <br></br>
-    <h4 className="vertical-timeline-element-subtitle">STAGE</h4>
-    <h4 className="vertical-timeline-element-subtitle">{detail[7] === "0" ? "Manufacturing Stage" : detail[7]}</h4>
-    
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2011 - present"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    
-  >
-    <h3 className="vertical-timeline-element-title">PRODUCT NAME :</h3>
-    <h3 className="vertical-timeline-element-title">{detail[1]}</h3>
-        <br></br>
-    <h3 className="vertical-timeline-element-title">Manufacturer ADDRESS:</h3>
-    <h3 className="vertical-timeline-element-title">{detail1[1]}</h3>
-        <br></br>
-    <h4 className="vertical-timeline-element-subtitle">PRICE</h4>
-    <h4 className="vertical-timeline-element-subtitle">{detail[3]}</h4>
-    <br></br>
     <h4 className="vertical-timeline-element-subtitle">TIME</h4>
-    <h4 className="vertical-timeline-element-subtitle">{new Date(detail1[2] * 1000).toLocaleString()}</h4>
+    <h4 className="vertical-timeline-element-subtitle">{new Date(time[1] * 1000).toLocaleString()}</h4>
     
   </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2011 - present"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    
-  >
-    <h3 className="vertical-timeline-element-title">PRODUCT NAME :</h3>
-    <h3 className="vertical-timeline-element-title">{detail[1]}</h3>
-        <br></br>
-    <h3 className="vertical-timeline-element-title">Manufacturer ADDRESS:</h3>
-    <h3 className="vertical-timeline-element-title">{detail1[1]}</h3>
-        <br></br>
-    <h4 className="vertical-timeline-element-subtitle">PRICE</h4>
-    <h4 className="vertical-timeline-element-subtitle">{detail[3]}</h4>
-    <br></br>
-    <h4 className="vertical-timeline-element-subtitle">TIME</h4>
-    <h4 className="vertical-timeline-element-subtitle">{new Date(detail1[2] * 1000).toLocaleString()}</h4>
-    
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2011 - present"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    
-  >
-    <h3 className="vertical-timeline-element-title">PRODUCT NAME :</h3>
-    <h3 className="vertical-timeline-element-title">{detail[1]}</h3>
-        <br></br>
-    <h3 className="vertical-timeline-element-title">Manufacturer ADDRESS:</h3>
-    <h3 className="vertical-timeline-element-title">{detail1[1]}</h3>
-        <br></br>
-    <h4 className="vertical-timeline-element-subtitle">PRICE</h4>
-    <h4 className="vertical-timeline-element-subtitle">{detail[3]}</h4>
-    <br></br>
-    <h4 className="vertical-timeline-element-subtitle">TIME</h4>
-    <h4 className="vertical-timeline-element-subtitle">{new Date(detail1[2] * 1000).toLocaleString()}</h4>
-    
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2011 - present"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    
-  >
-    <h3 className="vertical-timeline-element-title">PRODUCT NAME :</h3>
-    <h3 className="vertical-timeline-element-title">{detail[1]}</h3>
-        <br></br>
-    <h3 className="vertical-timeline-element-title">Manufacturer ADDRESS:</h3>
-    <h3 className="vertical-timeline-element-title">{detail1[1]}</h3>
-        <br></br>
-    <h4 className="vertical-timeline-element-subtitle">PRICE</h4>
-    <h4 className="vertical-timeline-element-subtitle">{detail[3]}</h4>
-    <br></br>
-    <h4 className="vertical-timeline-element-subtitle">TIME</h4>
-    <h4 className="vertical-timeline-element-subtitle">{new Date(detail1[2] * 1000).toLocaleString()}</h4>
-    
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2011 - present"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    
-  >
-    <h3 className="vertical-timeline-element-title">PRODUCT NAME :</h3>
-    <h3 className="vertical-timeline-element-title">{detail[1]}</h3>
-        <br></br>
-    <h3 className="vertical-timeline-element-title">Manufacturer ADDRESS:</h3>
-    <h3 className="vertical-timeline-element-title">{detail1[1]}</h3>
-        <br></br>
-    <h4 className="vertical-timeline-element-subtitle">PRICE</h4>
-    <h4 className="vertical-timeline-element-subtitle">{detail[3]}</h4>
-    <br></br>
-    <h4 className="vertical-timeline-element-subtitle">TIME</h4>
-    <h4 className="vertical-timeline-element-subtitle">{new Date(detail1[2] * 1000).toLocaleString()}</h4>
-    
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2011 - present"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    
-  >
-    <h3 className="vertical-timeline-element-title">PRODUCT NAME :</h3>
-    <h3 className="vertical-timeline-element-title">{detail[1]}</h3>
-        <br></br>
-    <h3 className="vertical-timeline-element-title">Manufacturer ADDRESS:</h3>
-    <h3 className="vertical-timeline-element-title">{detail1[1]}</h3>
-        <br></br>
-    <h4 className="vertical-timeline-element-subtitle">PRICE</h4>
-    <h4 className="vertical-timeline-element-subtitle">{detail[3]}</h4>
-    <br></br>
-    <h4 className="vertical-timeline-element-subtitle">TIME</h4>
-    <h4 className="vertical-timeline-element-subtitle">{new Date(detail1[2] * 1000).toLocaleString()}</h4>
-    
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="2011 - present"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    
-  >
-    <h3 className="vertical-timeline-element-title">PRODUCT NAME :</h3>
-    <h3 className="vertical-timeline-element-title">{detail[1]}</h3>
-        <br></br>
-    <h3 className="vertical-timeline-element-title">Manufacturer ADDRESS:</h3>
-    <h3 className="vertical-timeline-element-title">{detail1[1]}</h3>
-        <br></br>
-    <h4 className="vertical-timeline-element-subtitle">PRICE</h4>
-    <h4 className="vertical-timeline-element-subtitle">{detail[3]}</h4>
-    <br></br>
-    <h4 className="vertical-timeline-element-subtitle">TIME</h4>
-    <h4 className="vertical-timeline-element-subtitle">{new Date(detail1[2] * 1000).toLocaleString()}</h4>
-    
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-        iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-      >
-        
-
-      </VerticalTimelineElement>
+        </>
+        ) : (
+            <p></p>
+        )}
+    </>
+    <>
+        {(phase[2] != null) ? (
+        <>
+        <VerticalTimelineElement
+                className="vertical-timeline-element--work"
+                contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                date="2011 - present"
+                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                style={{ position: 'relative' }} // Add relative positioning
+            >
+                
+            <h3 className="vertical-timeline-element-title">PHASE</h3>
+            <h3 className="vertical-timeline-element-title">{phase[2]}</h3>
+                <br></br>
+            <h3 className="vertical-timeline-element-title">LOCATION:</h3>
+            <h3 className="vertical-timeline-element-title">{place[2]}</h3>
+                <br></br>
+            <h4 className="vertical-timeline-element-subtitle">TIME</h4>
+            <h4 className="vertical-timeline-element-subtitle">{new Date(time[2] * 1000).toLocaleString()}</h4>
+            
+        </VerticalTimelineElement>
+        </>
+        ) : (
+            <p></p>
+        )}
+    </>
+    <>
+        {(phase[3] != null) ? (
+        <>
+        <VerticalTimelineElement
+                className="vertical-timeline-element--work"
+                contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                date="2011 - present"
+                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                style={{ position: 'relative' }} // Add relative positioning
+            >
+                
+            <h3 className="vertical-timeline-element-title">PHASE</h3>
+            <h3 className="vertical-timeline-element-title">{phase[3]}</h3>
+                <br></br>
+            <h3 className="vertical-timeline-element-title">LOCATION:</h3>
+            <h3 className="vertical-timeline-element-title">{place[3]}</h3>
+                <br></br>
+            <h4 className="vertical-timeline-element-subtitle">TIME</h4>
+            <h4 className="vertical-timeline-element-subtitle">{new Date(time[3] * 1000).toLocaleString()}</h4>
+            
+        </VerticalTimelineElement>
+        </>
+        ) : (
+            <p></p>
+        )}
+    </>
+    <>
+        {(phase[4] != null) ? (
+        <>
+        <VerticalTimelineElement
+                className="vertical-timeline-element--work"
+                contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                date="2011 - present"
+                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                style={{ position: 'relative' }} // Add relative positioning
+            >
+                
+            <h3 className="vertical-timeline-element-title">PHASE</h3>
+            <h3 className="vertical-timeline-element-title">{phase[4]}</h3>
+                <br></br>
+            <h3 className="vertical-timeline-element-title">LOCATION:</h3>
+            <h3 className="vertical-timeline-element-title">{place[4]}</h3>
+                <br></br>
+            <h4 className="vertical-timeline-element-subtitle">TIME</h4>
+            <h4 className="vertical-timeline-element-subtitle">{new Date(time[4] * 1000).toLocaleString()}</h4>
+            
+        </VerticalTimelineElement>
+        </>
+        ) : (
+            <p></p>
+        )}
+    </>
+    <>
+        {(phase[5] != null) ? (
+        <>
+        <VerticalTimelineElement
+                className="vertical-timeline-element--work"
+                contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                date="2011 - present"
+                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                style={{ position: 'relative' }} // Add relative positioning
+            >
+                
+            <h3 className="vertical-timeline-element-title">PHASE</h3>
+            <h3 className="vertical-timeline-element-title">{phase[5]}</h3>
+                <br></br>
+            <h3 className="vertical-timeline-element-title">LOCATION:</h3>
+            <h3 className="vertical-timeline-element-title">{place[5]}</h3>
+                <br></br>
+            <h4 className="vertical-timeline-element-subtitle">TIME</h4>
+            <h4 className="vertical-timeline-element-subtitle">{new Date(time[5] * 1000).toLocaleString()}</h4>
+            
+        </VerticalTimelineElement>
+        </>
+        ) : (
+            <p></p>
+        )}
+    </>
+    <>
+        {(phase[6] != null) ? (
+        <>
+        <VerticalTimelineElement
+                className="vertical-timeline-element--work"
+                contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                date="2011 - present"
+                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                style={{ position: 'relative' }} // Add relative positioning
+            >
+                
+            <h3 className="vertical-timeline-element-title">PHASE</h3>
+            <h3 className="vertical-timeline-element-title">{phase[6]}</h3>
+                <br></br>
+            <h3 className="vertical-timeline-element-title">LOCATION:</h3>
+            <h3 className="vertical-timeline-element-title">{place[6]}</h3>
+                <br></br>
+            <h4 className="vertical-timeline-element-subtitle">TIME</h4>
+            <h4 className="vertical-timeline-element-subtitle">{new Date(time[6] * 1000).toLocaleString()}</h4>
+            
+        </VerticalTimelineElement>
+        </>
+        ) : (
+            <p></p>
+        )}
+    </>
+    <>
+        {(phase[7] != null) ? (
+        <>
+        <VerticalTimelineElement
+                className="vertical-timeline-element--work"
+                contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                date="2011 - present"
+                iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                style={{ position: 'relative' }} // Add relative positioning
+            >
+                
+            <h3 className="vertical-timeline-element-title">PHASE</h3>
+            <h3 className="vertical-timeline-element-title">{phase[7]}</h3>
+                <br></br>
+            <h3 className="vertical-timeline-element-title">LOCATION:</h3>
+            <h3 className="vertical-timeline-element-title">{place[7]}</h3>
+                <br></br>
+            <h4 className="vertical-timeline-element-subtitle">TIME</h4>
+            <h4 className="vertical-timeline-element-subtitle">{new Date(time[7] * 1000).toLocaleString()}</h4>
+            
+        </VerticalTimelineElement>
+        </>
+        ) : (
+            <p></p>
+        )}
+    </>
   </VerticalTimeline>
 
+  {(phase[6] != null) ? (
   <button
           style={{
             background: "rgb(33, 150, 243)",
@@ -266,12 +313,15 @@ function Verifydeli({state}){
             padding: "10px 20px",
             cursor: "pointer"
           }}
-          onClick={getCheckedValues}
+          onClick={console.log({detail1})}
         >
           DELIVER
         </button>
+  ) : (
+    <p></p>
+  )}
+
   </>
-  
     )
     
 }
