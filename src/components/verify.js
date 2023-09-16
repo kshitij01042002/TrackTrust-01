@@ -44,9 +44,9 @@ function Verify({state}){
         style={{ position: 'relative' }} // Add relative positioning
       >
     
-        <br></br>
+       
     <h3 className="vertical-timeline-element-title">PHASE </h3>
-    <h3 className="vertical-timeline-element-title">{detail1[0][0]}</h3>
+    <h3 className="vertical-timeline-element-title">{detail[0][0]}</h3>
         <br></br>
     <h4 className="vertical-timeline-element-subtitle">TIME</h4>
     <h4 className="vertical-timeline-element-subtitle">{new Date(detail1[2][0] * 1000).toLocaleString()}</h4>

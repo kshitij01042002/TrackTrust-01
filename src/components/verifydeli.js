@@ -10,6 +10,7 @@ function Verifydeli({state}){
   console.log(imgId);
   const [detail, setDetail] = useState("");
   const [detail1, setDetail1] = useState("");
+  
   useEffect(() => {
     if (!contract || !imgId) {
       return; // Exit if contract or userId is not available
@@ -44,7 +45,42 @@ function Verifydeli({state}){
 
     return(
         <>
-    <VerticalTimeline style={{ background: "#5f8e98" }}>
+       
+<div
+  style={{
+    backgroundColor: 'blue',
+    color: 'white',
+    padding: '20px',
+    borderRadius: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+    margin: '20px auto',
+    maxWidth: '400px', // Adjust the maximum width as needed
+  }}
+>
+  <div>
+    <h3 className="vertical-timeline-element-title">
+      PRODUCT NAME : {detail1[1]}
+    </h3>
+  </div>
+  <div>
+    <h3 className="vertical-timeline-element-title">
+      PRODUCT DESCRIPTION : {detail[2]}
+    </h3>
+  </div>
+  <div>
+    <h3 className="vertical-timeline-element-title">
+      PRODUCT PRICE : {detail[3]}
+    </h3>
+  </div>
+</div>
+
+
+
+        
+  <VerticalTimeline style={{ background: "#5f8e98" }}>
   <VerticalTimelineElement
         className="vertical-timeline-element--work"
         contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
@@ -53,7 +89,8 @@ function Verifydeli({state}){
         iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
         style={{ position: 'relative' }} // Add relative positioning
       >
-    <h3 className="vertical-timeline-element-title">PRODUCT NAME :</h3>
+        
+    <h3 className="vertical-timeline-element-title">PHASE</h3>
     <h3 className="vertical-timeline-element-title">{detail[2]}</h3>
         <br></br>
     <h3 className="vertical-timeline-element-title">Manufacturer ADDRESS:</h3>
