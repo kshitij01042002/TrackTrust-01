@@ -69,7 +69,7 @@ function Manufacturer({ state }) {
     link: (
       <a
         class="text-indigo-400 inline-flex items-center"
-        href={`verify/${item.id}`}
+        href={`verifydeli/${item.id}`}
       >
         Track
         <svg
