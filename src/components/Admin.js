@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function Admin() {
+function Admin({state}) {
   // Define state variables to store form input values
   const [userType, setUserType] = useState('');
   const [name, setName] = useState('');
@@ -8,15 +8,63 @@ function Admin() {
   const [address, setAddress] = useState('');
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // You can perform actions with the form input values here, such as sending them to a server or performing client-side validation.
     // For this example, we'll just log the values to the console.
     console.log('User Type:', userType);
+    setUserType(userType);
     console.log('Name:', name);
+    setName(name);
     console.log('Location:', location);
+    setLocation(location);
     console.log('Address:', address);
+    setAddress(address);
+    const { contract, web3 } = state;
+
+    const accounts = await web3.eth.getAccounts();
+      console.log("Hii");
+      
+      if(userType === "Manufacturer") {
+        console.log("M");
+        await contract.methods
+          .addManufacture(address,name,location)
+          .send({ from: accounts[0] });
+      } else if(userType === "Warehouse Owner") {
+        await contract.methods
+          .addWarehouse(address,name,location)
+          .send({ from: accounts[0] });
+      } else {
+        await contract.methods
+          .addRetailer(address,name,location)
+          .send({ from: accounts[0] });
+      }
   };
+
+  // useEffect(() => {
+  //   const { contract, web3 } = state;
+  //   const getDetail = async () => {
+  //     const accounts = await web3.eth.getAccounts();
+  //     console.log("Hii");
+      
+  //     if(userType === "Manufacturer") {
+  //       console.log("M");
+  //       await contract.methods
+  //         .addManufacture(address,name,location)
+  //         .send({ from: accounts[0] });
+  //     } else if(userType === "Warehouse Owner") {
+  //       await contract.methods
+  //         .addWarehouse(address,name,location)
+  //         .send({ from: accounts[0] });
+  //     } else {
+  //       await contract.methods
+  //         .addRetailer(address,name,location)
+  //         .send({ from: accounts[0] });
+  //     }
+
+  //   };
+  //   contract && getDetail();
+  // }, [state]);
 
   return (
     <section className="text-gray-400 bg-gray-900 body-font">

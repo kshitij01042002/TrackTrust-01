@@ -44,7 +44,7 @@ function Verifydeli({state}){
 
     return(
         <>
-    <VerticalTimeline style={{ background: "#5f8e98" }}>
+    {/* <VerticalTimeline style={{ background: "#5f8e98" }}>
   <VerticalTimelineElement
         className="vertical-timeline-element--work"
         contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
@@ -219,7 +219,7 @@ function Verifydeli({state}){
         
 
       </VerticalTimelineElement>
-  </VerticalTimeline>
+  </VerticalTimeline> */}
 
   <button
           style={{
