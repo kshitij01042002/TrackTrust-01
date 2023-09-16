@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import { Chart } from "react-google-charts";
 
 export const options = {
-    title: "My Daily Activities",
+    title: "Your Products Summary",
     is3D: true,
   };
 
@@ -29,10 +29,10 @@ function Manuboard({state}) {
 
   console.log(detail)
   detail.forEach((item) =>{
-      if(item.stage == 0) {
+      if(item.stage == "0") {
         available++;
       }
-      else if(item.stage == 7) {
+      else if(item.stage == "7") {
         delivered++;
       } else {
         other++;
