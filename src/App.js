@@ -17,6 +17,7 @@ import WarehouseOut from "./components/warehouse_out";
 import Verify from "./components/verify";
 import RetailerIn from "./components/retailer_in";
 import RetailerOut from "./components/retailer_out";
+import Admindash from "./components/admindash";
 
 export default function App() {
 
@@ -50,6 +51,7 @@ export default function App() {
         <Route path="/retailerout" element={<RetailerOut state={state}/>}></Route>
         <Route path="/warehousein" element={<WarehouseIn state={state}/>}></Route>
         <Route path="/warehouseout" element={<WarehouseOut state={state}/>}></Route>
+        <Route path="/admin_dash" element={<Admindash state={state}/>}></Route>
       </Routes>
     </BrowserRouter>
     <Footer></Footer>
