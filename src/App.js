@@ -46,9 +46,7 @@ export default function App() {
           <Route path=":imgId" element={<Verify state={state} />} />
         </Route>
         <Route path="/sell" element={<Sell state={state}/>}></Route>
-
         <Route path="/retailerin" element={<RetailerIn state={state}/>}></Route>
-
         <Route path="/retailerout" element={<RetailerOut state={state}/>}></Route>
         <Route path="/warehousein" element={<WarehouseIn state={state}/>}></Route>
         <Route path="/manufacturer" element={<Manufacturer state={state}/>}></Route>

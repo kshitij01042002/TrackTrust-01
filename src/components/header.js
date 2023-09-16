@@ -67,7 +67,7 @@ function Header({ saveState }) {
       <>
     {(user === "Retailer") ? (
       <>
-      <a class="mr-5 hover:text-white" href='/'>Receive Products</a>
+      <a class="mr-5 hover:text-white" href='/retailerin'>Receive Products</a>
       <a class="mr-5 hover:text-white" href='/retailerout'>Dispatch Product</a>
       </>
       ) : (
