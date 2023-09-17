@@ -160,7 +160,7 @@ function Manufacturer({ state }) {
             <circle cx="9" cy="7" r="4"></circle>
             <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
           </svg>
-          <h2 class="title-font font-medium text-3xl text-white">1.3K</h2>
+          <h2 class="title-font font-medium text-3xl text-white">3</h2>
           <p class="leading-relaxed">Total Customers</p>
         </div>
       </div>
